@@ -1,0 +1,33 @@
+{
+  "name": "aromatik-backend",
+  "version": "1.0.0",
+  "description": "Back-end do Aromatik",
+  "homepage": "https://github.com/RafaGuanciale/aromatik-backend#readme",
+  "bugs": {
+    "url": "https://github.com/RafaGuanciale/aromatik-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaGuanciale/aromatik-backend.git"
+  },
+  "license": "ISC",
+  "author": "Rafael Guanciale Nacarato",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint .",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0",
+    "nodemon": "^3.1.14"
+  }
+}
