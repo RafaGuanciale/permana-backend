@@ -1,9 +1,13 @@
 [
   {
-    "_id": "1",
+    "_id": "bce35ffb-3555-48ce-9ae7-661d56b24bbe",
+    "analyzed": false,
     "username": "rafaGuanciale",
     "name": "Rafael",
+    "email": "rafael@example.com",
+    "password": "",
     "about": "Building Aromatik",
+    "createdAt": "2026-05-15T...",
     "avatar": "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
   }
 ]

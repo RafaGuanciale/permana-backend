@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "5a1c0364-df4b-4658-bbc8-bf9860bac9a9",
+    "name": "Kaiak Oceano",
+    "brand": "Natura",
+    "link": "https://production.na01.natura.com/dw/image/v2/BFKR_PRD/on/demandware.static/-/Sites-natura-br-storefront-catalog/default/dw102b8211/produto-joia/background/mobile/108405.jpg",
+    "description": "Aquático fresco com notas marinhas e amadeiradas. O clássico brasileiro do gênero — versátil, democrático e com ótima relação custo-benefício.",
+    "family": "Aquático",
+    "occasion": "Casual",
+    "climate": "Calor",
+    "intensity": "Leve"
+  },
+    {
+      "_id": "bb3099df-18ff-48bd-bc51-37bf3098039c",
+      "name": "Stronger With You",
+      "brand": "Emporio Armani",
+      "link": "",
+      "description": "Cardamomo, baunilha e castanha com base amadeirada. Gourmand especiado moderno e sedutor, com apelo jovem e presença marcante.",
+      "family": "Gourmand",
+      "occasion": "Encontro",
+      "climate": "Clima Ameno",
+      "intensity": "Intenso"
+    }
+]
