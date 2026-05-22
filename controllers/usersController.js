@@ -1,35 +1,48 @@
-const { v4: uuidv4 } = require('uuid');
-
-const usersData = require('../data/users');
+const userModel = require("../models/user");
 
 function getUsers(req, res, next) {
-  res.json(usersData);
+  userModel
+    .find({})
+    .then((users) => res.status(200).json(users))
+    .catch((err) => next(err));
+}
+
+function getUserById(req, res, next) {
+  const { id } = req.params;
+  userModel
+    .findById(id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+      res.status(200).json(user);
+    })
+    .catch((err) => next(err));
 }
 
 function createUser(req, res, next) {
-  const {
-    username,
-    name,
-    about,
-    avatar = 'https://i.pinimg.com/736x/3c/67/75/3c67757cef723535a7484a6c7bfbfc43.jpg',
-  } = req.body;
-  if (!username || !name || !about) {
-    res.status(400).json({ error: 'Missing required fields' });
+  const { username, name, about, avatar, email, password, analyzed } = req.body;
+  if (!username || !name || !about || !email || !password) {
+    res.status(400).json({ error: "Missing required fields" });
     return;
   }
-  const newUser = {
-    _id: uuidv4(),
-    username,
-    name,
-    about,
-    avatar,
-  };
-  usersData.push(newUser);
-
-  res.status(201).send(newUser);
+  userModel
+    .create({
+      username,
+      name,
+      about,
+      avatar,
+      email,
+      password,
+      analyzed,
+    })
+    .then((newUser) => res.status(201).json(newUser))
+    .catch((err) => next(err));
 }
 
 module.exports = {
   getUsers,
+  getUserById,
   createUser,
 };

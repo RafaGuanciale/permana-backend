@@ -1,37 +1,34 @@
-const { v4: uuidv4 } = require('uuid');
+const collectionModel = require("../models/collection");
 
-const collectionData = require('../data/collection');
-
-const userData = require('../data/users');
+const userModel = require("../models/user");
 
 function getCollection(req, res, next) {
-  res.json(collectionData);
+  collectionModel
+    .find({})
+    .then((collection) => res.status(200).json(collection))
+    .catch((err) => next(err));
 }
 
-function addPerfumeInCollection(req, res, next) {
-  const { userId, perfumeId } = req.body;
-  if (!userId || !perfumeId) {
-    res.status(400).json({ error: 'Missing required fields' });
-    return;
+async function addPerfumeInCollection(req, res, next) {
+  try {
+    const { userId, perfumeId } = req.body;
+    if (!userId || !perfumeId) {
+      res.status(400).json({ error: "Missing required fields" });
+      return;
+    }
+    const user = await userModel.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+    await userModel.findByIdAndUpdate(userId, {
+      analyzed: false,
+    });
+    const newEntry = await collectionModel.create({ userId, perfumeId });
+    res.status(201).json(newEntry);
+  } catch (err) {
+    next(err);
   }
-  const newPerfume = {
-    _id: uuidv4(),
-    userId,
-    perfumeId,
-    role: null,
-  };
-
-  const userInfo = userData.find((user) => user._id === userId);
-  if (!userInfo) {
-    res.status(404).json({ error: 'User not found' });
-    return;
-  }
-  collectionData.push(newPerfume);
-  userInfo.analyzed = false;
-
-  res
-    .status(201)
-    .send(`New perfume added to collection with id: ${newPerfume._id}`);
 }
 
 module.exports = {
