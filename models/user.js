@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
   olfactoryProfile: {
     dominantFamily: String,
     signature: String, // IA
-    goodAt: String,
-    badAt: String,
+    goodAt: String, // IA
+    badAt: String, // IA
     rarity: String,
     breakdown: {
       light: Number,
@@ -28,22 +28,8 @@ const userSchema = new mongoose.Schema({
       of: Number,
     },
     practicalImpact: {
-      goodAt: {
-        night: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-        day: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-        cold: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-        hot: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-        formal: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-        casual: [{ type: mongoose.Schema.Types.ObjectId, ref: "collection" }],
-      },
-      badAt: {
-        night: Number,
-        day: Number,
-        cold: Number,
-        hot: Number,
-        formal: Number,
-        casual: Number,
-      },
+      goodAt: { type: Map, of: Number },
+      badAt: { type: Map, of: Number },
     },
   },
   recommendations: {
