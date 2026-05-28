@@ -1,7 +1,9 @@
 const router = require('express').Router();
-const { getCollection, addPerfumeInCollection } = require('../controllers/collectionController');
+const { getCollection, getMyCollection, addPerfumeInCollection } = require('../controllers/collectionController');
 
 router.get('/', getCollection);
+
+router.get('/me', getMyCollection);
 
 router.post('/', addPerfumeInCollection);
 
