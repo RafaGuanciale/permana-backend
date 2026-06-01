@@ -6,7 +6,7 @@ const regex =
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   name: { type: String, required: true },
-  about: { type: String, required: true },
+  about: { type: String, default: '' },
   avatar: {
     type: String,
     default:
