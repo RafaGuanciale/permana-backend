@@ -9,6 +9,8 @@ const perfumesRouter = require("./routes/perfumes");
 
 const collectionRouter = require("./routes/collection");
 
+const authRouter = require("./routes/auth");
+
 const BAD_REQUEST = 400;
 const NOT_FOUND = 404;
 const INTERNAL_SERVER_ERROR = 500;
@@ -30,6 +32,7 @@ app.use((req, res, next) => {
 app.use("/users", usersRouter);
 app.use("/perfumes", perfumesRouter);
 app.use("/collection", collectionRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res) => {
   res.status(404).send("Not found");
