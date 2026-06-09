@@ -15,7 +15,8 @@ function getCollection(req, res, next) {
 function getMyCollection(req, res, next) {
   const userId = req.user._id;
   collectionModel
-    .find({userId})
+    .find({ userId })
+    .populate("perfumeId")
     .then((collection) => res.status(200).json(collection))
     .catch((err) => {
       err.entity = "Collection";
