@@ -22,12 +22,6 @@ app.use(
     origin: "http://localhost:3001",
   }),
 );
-app.use((req, res, next) => {
-  req.user = {
-    _id: "6a10a40774bd4f4141d0cf8d",
-  };
-  next();
-});
 
 app.use("/users", usersRouter);
 app.use("/perfumes", perfumesRouter);

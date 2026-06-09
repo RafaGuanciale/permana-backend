@@ -1,4 +1,6 @@
 const userModel = require("../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 function login(req, res, next) {
   const { email, password } = req.body;
@@ -6,13 +8,23 @@ function login(req, res, next) {
   userModel
     .findOne({ email })
     .then((user) => {
-      if (!user || user.password !== password) {
-        return res.status(401).json({
-          message: "Usuário ou senha inválidos",
-        });
+      if (!user) {
+        return res.status(401).json({ message: "Usuário ou senha inválidos" });
       }
 
-      return res.status(200).json(user);
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        if (isMatch) {
+          const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+            algorithm: "HS256",
+            expiresIn: "7d",
+          });
+          return res.status(200).json({ token });
+        } else {
+          return res
+            .status(401)
+            .json({ message: "Usuário ou senha inválidos" });
+        }
+      });
     })
     .catch((err) => {
       err.entity = "Usuário";

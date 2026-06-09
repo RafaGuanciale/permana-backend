@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { getPerfumes } = require('../controllers/perfumesController');
+const { authMiddleware } = require("../middleware/authMiddleware");
 
-router.get('/', getPerfumes);
+router.get('/', authMiddleware, getPerfumes);
 
 module.exports = router;

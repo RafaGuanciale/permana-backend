@@ -12,6 +12,11 @@ const perfumeSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    concentration: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     slug: {
       type: String,
       unique: true,

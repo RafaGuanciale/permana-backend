@@ -1,42 +1,36 @@
-const userModel = require('../models/user');
+const userModel = require("../models/user");
+const bcrypt = require("bcrypt");
 
-function getUsers(req, res, next) {
+function getMe(req, res, next) {
+  const userId = req.user._id;
   userModel
-    .find({})
-    .then((users) => res.status(200).json(users))
-    .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
-    });
-}
-
-function getUserById(req, res, next) {
-  const { id } = req.params;
-  userModel
-    .findById(id)
+    .findById(userId)
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
+      err.entity = "Usuário";
       next(err);
     });
 }
 
 function createUser(req, res, next) {
   const { username, name, about, avatar, email, password } = req.body;
-
-  userModel
-    .create({
-      username,
-      name,
-      about,
-      avatar,
-      email,
-      password,
+  bcrypt
+    .hash(password, 10)
+    .then((hashPassword) => {
+      userModel
+        .create({
+          username,
+          name,
+          about,
+          avatar,
+          email,
+          password: hashPassword,
+        })
+        .then((newUser) => res.status(201).json(newUser));
     })
-    .then((newUser) => res.status(201).json(newUser))
     .catch((err) => {
-      err.entity = 'Usuário';
+      err.entity = "Usuário";
       next(err);
     });
 }
@@ -53,7 +47,7 @@ function updateUser(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
+      err.entity = "Usuário";
       next(err);
     });
 }
@@ -66,14 +60,13 @@ function updateAvatar(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
+      err.entity = "Usuário";
       next(err);
     });
 }
 
 module.exports = {
-  getUsers,
-  getUserById,
+  getMe,
   createUser,
   updateUser,
   updateAvatar,
