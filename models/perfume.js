@@ -31,6 +31,10 @@ const perfumeSchema = new mongoose.Schema(
       default: "",
       required: true,
     },
+    popular: {
+      type: Boolean,
+      default: false,
+    },
     // ========== TAGS VISUAIS (UI) ============
     mainFamily: {
       type: String,

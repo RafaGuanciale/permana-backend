@@ -26,7 +26,8 @@ function getMyCollection(req, res, next) {
 
 async function addPerfumeInCollection(req, res, next) {
   try {
-    const { userId, perfumeId } = req.body;
+    const userId = req.user._id;
+    const { perfumeId } = req.body;
     await userModel
       .findByIdAndUpdate(userId, { analyzed: false }, { new: true })
       .orFail();
