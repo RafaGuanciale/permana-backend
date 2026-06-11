@@ -45,8 +45,33 @@ async function addPerfumeInCollection(req, res, next) {
   }
 }
 
+async function removePerfumeFromCollection(req, res, next) {
+  try {
+    const userId = req.user._id;
+    const { perfumeId } = req.params;
+    await userModel
+      .findByIdAndUpdate(userId, { analyzed: false }, { new: true })
+      .orFail();
+    const removed = await collectionModel.findOneAndDelete({
+      userId,
+      perfumeId,
+    });
+    if (!removed) {
+      return res
+        .status(404)
+        .json({ message: "Perfume não encontrado na coleção" });
+    }
+
+    res.status(200).json(removed);
+  } catch (err) {
+    err.entity = "Collection";
+    next(err);
+  }
+}
+
 module.exports = {
   getCollection,
   getMyCollection,
   addPerfumeInCollection,
+  removePerfumeFromCollection,
 };
