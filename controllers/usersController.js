@@ -17,17 +17,20 @@ function createUser(req, res, next) {
   const { username, name, about, avatar, email, password } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hashPassword) => {
-      userModel
-        .create({
-          username,
-          name,
-          about,
-          avatar,
-          email,
-          password: hashPassword,
-        })
-        .then((newUser) => res.status(201).json(newUser));
+    .then((hashPassword) =>
+      userModel.create({
+        username,
+        name,
+        about,
+        avatar,
+        email,
+        password: hashPassword,
+      }),
+    )
+    .then((newUser) => {
+      const user = newUser.toObject();
+      delete user.password;
+      res.status(201).json(user);
     })
     .catch((err) => {
       err.entity = "Usuário";

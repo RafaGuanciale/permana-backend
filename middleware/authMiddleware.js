@@ -1,19 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 function authMiddleware(req, res, next) {
-  try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ message: "Usuário ou senha inválidos" });
-    }
-    const tokenVerified = jwt.verify(token, process.env.JWT_SECRET);
-    if (tokenVerified) {
-      req.user = tokenVerified;
-      next();
-    }
-  } catch {
-    return res.status(401).json({ message: "Usuário ou senha inválidos" });
+  const { authorization } = req.headers;
+
+  if (!authorization || !authorization.startsWith("Bearer ")) {
+    return res.status(401).send({ message: "Autorização necessária" });
   }
+
+  const token = authorization.split(" ")[1];
+  let tokenVerified;
+
+  try {
+    tokenVerified = jwt.verify(token, process.env.JWT_SECRET);
+  } catch {
+    return res.status(401).send({ message: "Autorização necessária" });
+  }
+
+  req.user = tokenVerified;
+  next();
 }
 
 module.exports = { authMiddleware };
