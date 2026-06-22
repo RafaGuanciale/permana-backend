@@ -2,16 +2,6 @@ const collectionModel = require("../models/collection");
 
 const userModel = require("../models/user");
 
-function getCollection(req, res, next) {
-  collectionModel
-    .find({})
-    .then((collection) => res.status(200).json(collection))
-    .catch((err) => {
-      err.entity = "Collection";
-      next(err);
-    });
-}
-
 function getMyCollection(req, res, next) {
   const userId = req.user._id;
   collectionModel
@@ -70,7 +60,6 @@ async function removePerfumeFromCollection(req, res, next) {
 }
 
 module.exports = {
-  getCollection,
   getMyCollection,
   addPerfumeInCollection,
   removePerfumeFromCollection,

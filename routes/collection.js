@@ -1,13 +1,10 @@
 const router = require("express").Router();
 const {
-  getCollection,
   getMyCollection,
   addPerfumeInCollection,
   removePerfumeFromCollection,
 } = require("../controllers/collectionController");
 const { authMiddleware } = require("../middleware/authMiddleware");
-
-router.get("/", authMiddleware, getCollection);
 
 router.get("/me", authMiddleware, getMyCollection);
 
