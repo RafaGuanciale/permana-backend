@@ -18,12 +18,12 @@ const NOT_FOUND = 404;
 const INTERNAL_SERVER_ERROR = 500;
 const cors = require("cors");
 
-app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:3001",
   }),
 );
+app.use(express.json());
 
 app.use("/users", usersRouter);
 app.use("/perfumes", perfumesRouter);
