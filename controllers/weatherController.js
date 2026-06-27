@@ -1,3 +1,5 @@
+const WEATHER_CONDITIONS = require("../utils/weatherConditions");
+
 async function getWeather(req, res, next) {
   try {
     const { lat, lon } = req.query;
@@ -19,17 +21,13 @@ async function getWeather(req, res, next) {
       weatherDescription = "quente";
     }
 
-    const conditions = {
-      Sunny: "Ensolarado",
-      Clear: "Limpo",
-      Cloudy: "Nublado",
-      "Partly cloudy": "Parcialmente nublado",
-      Mist: "Névoa",
-      Rain: "Chuva",
-      "Light rain": "Chuva leve",
-    };
-    const condition =
-      conditions[data.current.condition.text] || data.current.condition.text;
+    const code = data.current.condition.code;
+    const translated = WEATHER_CONDITIONS[code];
+    const condition = translated
+      ? isDay
+        ? translated.day
+        : translated.night
+      : data.current.condition.text;
 
     res.send({
       temp: `${temp}°`,
