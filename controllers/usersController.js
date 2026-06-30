@@ -55,6 +55,18 @@ function updateUser(req, res, next) {
     });
 }
 
+function deleteAccount(req, res, next) {
+  const ownerId = req.user._id;
+  userModel
+    .findByIdAndDelete(ownerId)
+    .orFail()
+    .then((user) => res.status(200).json({ message: `Usuário deletado` }))
+    .catch((err) => {
+      err.entity = "Usuário";
+      next(err);
+    });
+}
+
 function updateAvatar(req, res, next) {
   const ownerId = req.user._id;
   const { avatar } = req.body;
@@ -72,5 +84,6 @@ module.exports = {
   getMe,
   createUser,
   updateUser,
+  deleteAccount,
   updateAvatar,
 };
