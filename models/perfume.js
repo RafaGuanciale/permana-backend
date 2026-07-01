@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const perfumeSchema = new mongoose.Schema(
   {
@@ -24,11 +24,11 @@ const perfumeSchema = new mongoose.Schema(
     },
     link: {
       type: String,
-      default: "",
+      default: '',
     },
     description: {
       type: String,
-      default: "",
+      default: '',
       required: true,
     },
     popular: {
@@ -51,7 +51,7 @@ const perfumeSchema = new mongoose.Schema(
     mainIntensity: {
       type: String,
       required: true,
-      enum: ["leve", "moderado", "forte", "extremo"],
+      enum: ['leve', 'moderado', 'forte', 'extremo'],
     },
     // ========== DADOS ANALÍTICOS ============
     families: [
@@ -107,7 +107,7 @@ const perfumeSchema = new mongoose.Schema(
     },
     priceCategory: {
       type: String,
-      enum: ["light", "premium", "niche"],
+      enum: ['light', 'premium', 'niche'],
       required: true,
     },
     price: {
@@ -117,7 +117,7 @@ const perfumeSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["masculino", "feminino", "unissex"],
+      enum: ['masculino', 'feminino', 'unissex'],
       required: true,
     },
   },
@@ -126,4 +126,4 @@ const perfumeSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model("perfume", perfumeSchema);
+module.exports = mongoose.model('perfume', perfumeSchema);

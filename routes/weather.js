@@ -1,7 +1,7 @@
-const { authMiddleware } = require("../middleware/authMiddleware");
-const router = require("express").Router();
-const { getWeather } = require("../controllers/weatherController");
+const router = require('express').Router();
+const { authMiddleware } = require('../middleware/authMiddleware');
+const { getWeather } = require('../controllers/weatherController');
 
-router.get("/", authMiddleware, getWeather);
+router.get('/', authMiddleware, getWeather);
 
 module.exports = router;

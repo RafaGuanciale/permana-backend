@@ -1,15 +1,15 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   getMyCollection,
   addPerfumeInCollection,
   removePerfumeFromCollection,
-} = require("../controllers/collectionController");
-const { authMiddleware } = require("../middleware/authMiddleware");
+} = require('../controllers/collectionController');
+const { authMiddleware } = require('../middleware/authMiddleware');
 
-router.get("/me", authMiddleware, getMyCollection);
+router.get('/me', authMiddleware, getMyCollection);
 
-router.post("/", authMiddleware, addPerfumeInCollection);
+router.post('/', authMiddleware, addPerfumeInCollection);
 
-router.delete("/:perfumeId", authMiddleware, removePerfumeFromCollection);
+router.delete('/:perfumeId', authMiddleware, removePerfumeFromCollection);
 
 module.exports = router;

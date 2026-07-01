@@ -1,5 +1,5 @@
-const userModel = require("../models/user");
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
+const userModel = require('../models/user');
 
 function getMe(req, res, next) {
   const userId = req.user._id;
@@ -8,32 +8,32 @@ function getMe(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = "Usuário";
+      err.entity = 'Usuário';
       next(err);
     });
 }
 
 function createUser(req, res, next) {
-  const { username, name, about, avatar, email, password } = req.body;
+  const {
+    username, name, about, avatar, email, password,
+  } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hashPassword) =>
-      userModel.create({
-        username,
-        name,
-        about,
-        avatar,
-        email,
-        password: hashPassword,
-      }),
-    )
+    .then((hashPassword) => userModel.create({
+      username,
+      name,
+      about,
+      avatar,
+      email,
+      password: hashPassword,
+    }))
     .then((newUser) => {
       const user = newUser.toObject();
       delete user.password;
       res.status(201).json(user);
     })
     .catch((err) => {
-      err.entity = "Usuário";
+      err.entity = 'Usuário';
       next(err);
     });
 }
@@ -50,7 +50,7 @@ function updateUser(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = "Usuário";
+      err.entity = 'Usuário';
       next(err);
     });
 }
@@ -60,9 +60,9 @@ function deleteAccount(req, res, next) {
   userModel
     .findByIdAndDelete(ownerId)
     .orFail()
-    .then((user) => res.status(200).json({ message: `Usuário deletado` }))
+    .then((user) => res.status(200).json({ message: 'Usuário deletado' }))
     .catch((err) => {
-      err.entity = "Usuário";
+      err.entity = 'Usuário';
       next(err);
     });
 }
@@ -75,7 +75,7 @@ function updateAvatar(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = "Usuário";
+      err.entity = 'Usuário';
       next(err);
     });
 }

@@ -1,4 +1,4 @@
-const WEATHER_CONDITIONS = require("../utils/weatherConditions");
+const WEATHER_CONDITIONS = require('../utils/weatherConditions');
 
 async function getWeather(req, res, next) {
   try {
@@ -11,17 +11,17 @@ async function getWeather(req, res, next) {
     const data = await response.json();
     const temp = Math.round(data.current.temp_c);
     const isDay = Boolean(data.current.is_day);
-    const period = isDay ? "Dia" : "Noite";
+    const period = isDay ? 'Dia' : 'Noite';
     let weatherDescription;
     if (temp < 15) {
-      weatherDescription = isDay ? "frio" : "fria";
+      weatherDescription = isDay ? 'frio' : 'fria';
     } else if (temp < 24) {
-      weatherDescription = isDay ? "ameno" : "amena";
+      weatherDescription = isDay ? 'ameno' : 'amena';
     } else {
-      weatherDescription = "quente";
+      weatherDescription = 'quente';
     }
 
-    const code = data.current.condition.code;
+    const { code } = data.current.condition;
     const translated = WEATHER_CONDITIONS[code];
     const condition = translated
       ? isDay
