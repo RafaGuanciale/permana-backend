@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+const helmet = require('helmet');
 const errorHandler = require('./middleware/errorHandler');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const usersRouter = require('./routes/users');
@@ -22,6 +23,7 @@ app.use(
     origin: ['http://localhost:3001', 'https://permana-frontend.vercel.app'],
   }),
 );
+app.use(helmet());
 app.use(express.json());
 
 app.use(requestLogger);

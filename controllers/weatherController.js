@@ -23,11 +23,12 @@ async function getWeather(req, res, next) {
 
     const { code } = data.current.condition;
     const translated = WEATHER_CONDITIONS[code];
-    const condition = translated
-      ? isDay
-        ? translated.day
-        : translated.night
-      : data.current.condition.text;
+    let condition;
+    if (translated) {
+      condition = isDay ? translated.day : translated.night;
+    } else {
+      condition = data.current.condition.text;
+    }
 
     res.send({
       temp: `${temp}°`,

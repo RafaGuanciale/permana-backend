@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+const mongoose = require('mongoose');
+const validator = require('validator');
 
-const regex =
-  /(http|https):\/\/(www\.)?[\w-]+\.\w+([/\w._~:/?%#[\]@!$&'()*+,;=]*)?/;
+const regex = /(http|https):\/\/(www\.)?[\w-]+\.\w+([/\w._~:/?%#[\]@!$&'()*+,;=]*)?/;
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -10,10 +9,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default:
-      "https://i.pinimg.com/736x/3c/67/75/3c67757cef723535a7484a6c7bfbfc43.jpg",
+      'https://i.pinimg.com/736x/3c/67/75/3c67757cef723535a7484a6c7bfbfc43.jpg',
     validate: {
       validator: (value) => regex.test(value),
-      message: "Insira uma URL válida",
+      message: 'Insira uma URL válida',
     },
   },
   email: {
@@ -22,7 +21,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (value) => validator.isEmail(value),
-      message: "Insira um email válido",
+      message: 'Insira um email válido',
     },
   },
   password: { type: String, required: true, select: false },
@@ -50,11 +49,11 @@ const userSchema = new mongoose.Schema({
   recommendations: {
     type: Map,
     of: {
-      light: [{ type: mongoose.Schema.Types.ObjectId, ref: "perfume" }],
-      premium: [{ type: mongoose.Schema.Types.ObjectId, ref: "perfume" }],
-      niche: [{ type: mongoose.Schema.Types.ObjectId, ref: "perfume" }],
+      light: [{ type: mongoose.Schema.Types.ObjectId, ref: 'perfume' }],
+      premium: [{ type: mongoose.Schema.Types.ObjectId, ref: 'perfume' }],
+      niche: [{ type: mongoose.Schema.Types.ObjectId, ref: 'perfume' }],
     },
   },
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model('user', userSchema);

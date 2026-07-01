@@ -25,8 +25,7 @@ function login(req, res, next) {
       });
     })
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 

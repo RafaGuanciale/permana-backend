@@ -9,8 +9,7 @@ function getMyCollection(req, res, next) {
     .populate('perfumeId')
     .then((collection) => res.status(200).json(collection))
     .catch((err) => {
-      err.entity = 'Collection';
-      next(err);
+      next(Object.assign(err, { entity: 'Collection' }));
     });
 }
 
@@ -28,10 +27,10 @@ async function addPerfumeInCollection(req, res, next) {
         .json({ message: 'Perfume já adicionado à coleção' });
     }
     const newEntry = await collectionModel.create({ userId, perfumeId });
-    res.status(201).json(newEntry);
+    return res.status(201).json(newEntry);
   } catch (err) {
     err.entity = 'Collection';
-    next(err);
+    return next(err);
   }
 }
 
@@ -52,10 +51,10 @@ async function removePerfumeFromCollection(req, res, next) {
         .json({ message: 'Perfume não encontrado na coleção' });
     }
 
-    res.status(200).json(removed);
+    return res.status(200).json(removed);
   } catch (err) {
     err.entity = 'Collection';
-    next(err);
+    return next(err);
   }
 }
 

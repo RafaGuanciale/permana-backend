@@ -8,8 +8,7 @@ function getMe(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 
@@ -33,8 +32,7 @@ function createUser(req, res, next) {
       res.status(201).json(user);
     })
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 
@@ -50,8 +48,7 @@ function updateUser(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 
@@ -60,10 +57,9 @@ function deleteAccount(req, res, next) {
   userModel
     .findByIdAndDelete(ownerId)
     .orFail()
-    .then((user) => res.status(200).json({ message: 'Usuário deletado' }))
+    .then(() => res.status(200).json({ message: 'Usuário deletado' }))
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 
@@ -75,8 +71,7 @@ function updateAvatar(req, res, next) {
     .orFail()
     .then((user) => res.status(200).json(user))
     .catch((err) => {
-      err.entity = 'Usuário';
-      next(err);
+      next(Object.assign(err, { entity: 'Usuário' }));
     });
 }
 

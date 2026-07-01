@@ -13,8 +13,7 @@ function getPerfumes(req, res, next) {
     .find(filter)
     .then((perfumes) => res.status(200).json(perfumes))
     .catch((err) => {
-      err.entity = 'Perfume';
-      next(err);
+      next(Object.assign(err, { entity: 'Perfume' }));
     });
 }
 
