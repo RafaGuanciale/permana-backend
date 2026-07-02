@@ -1,15 +1,16 @@
-const router = require("express").Router();
-const { authMiddleware } = require("../middleware/authMiddleware");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { authMiddleware } = require('../middleware/authMiddleware');
 const {
   createUser,
   updateUser,
   updateAvatar,
   getMe,
   deleteAccount,
-} = require("../controllers/usersController");
+} = require('../controllers/usersController');
 
 router.post(
-  "/",
+  '/',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
@@ -21,12 +22,21 @@ router.post(
   createUser,
 );
 
-router.patch("/me", authMiddleware, updateUser);
+router.patch(
+  '/me',
+  authMiddleware,
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required().min(2).max(30),
+    }),
+  }),
+  updateUser,
+);
 
-router.patch("/me/avatar", authMiddleware, updateAvatar);
+router.patch('/me/avatar', authMiddleware, updateAvatar);
 
-router.get("/me", authMiddleware, getMe);
+router.get('/me', authMiddleware, getMe);
 
-router.delete("/me", authMiddleware, deleteAccount);
+router.delete('/me', authMiddleware, deleteAccount);
 
 module.exports = router;

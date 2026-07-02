@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const { login } = require("../controllers/authController");
-const { celebrate, Joi } = require("celebrate");
+const router = require('express').Router();
+const { celebrate, Joi } = require('celebrate');
+const { login } = require('../controllers/authController');
 
 router.post(
-  "/login",
+  '/login',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
