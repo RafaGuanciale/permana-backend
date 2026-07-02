@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const { PORT = 3000 } = process.env;
 const helmet = require('helmet');
+const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const usersRouter = require('./routes/users');
@@ -39,6 +40,8 @@ app.use((req, res) => {
 });
 
 app.use(errorLogger);
+
+app.use(errors());
 
 app.use(errorHandler);
 
