@@ -1,4 +1,5 @@
 const BAD_REQUEST = 400;
+const UNAUTHORIZED = 401;
 const NOT_FOUND = 404;
 const INTERNAL_SERVER_ERROR = 500;
 const DUPLICATION_ERROR = 409;
@@ -13,6 +14,9 @@ module.exports = (err, req, res, next) => {
   }
   if (err.name === 'ValidationError') {
     return res.status(BAD_REQUEST).json({ message: 'Dados inválidos' });
+  }
+  if (err.name === 'UnauthorizedError') {
+    return res.status(UNAUTHORIZED).json({ message: 'Usuário ou senha inválidos' });
   }
   if (err.name === 'CastError') {
     return res.status(BAD_REQUEST).json({ message: 'ID inválido' });

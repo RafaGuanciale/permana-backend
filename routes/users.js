@@ -37,6 +37,15 @@ router.patch('/me/avatar', authMiddleware, updateAvatar);
 
 router.get('/me', authMiddleware, getMe);
 
-router.delete('/me', authMiddleware, deleteAccount);
+router.delete(
+  "/me",
+  authMiddleware,
+  celebrate({
+    body: Joi.object().keys({
+      password: Joi.string().required(),
+    }),
+  }),
+  deleteAccount
+);
 
 module.exports = router;
