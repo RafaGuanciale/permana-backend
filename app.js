@@ -4,7 +4,7 @@ require('./config/db');
 const cors = require('cors');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
