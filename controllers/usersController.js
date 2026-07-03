@@ -72,7 +72,6 @@ function deleteAccount(req, res, next) {
         return collectionModel
           .deleteMany({ userId: ownerId })
           .then((result) => {
-            console.log("deletados da coleção:", result.deletedCount);
             return userModel.findByIdAndDelete(ownerId).orFail();
           });
       }),
