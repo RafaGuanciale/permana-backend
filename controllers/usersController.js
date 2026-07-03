@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user");
-const colectionModel = require("../models/collection");
+const collectionModel = require("../models/collection");
 
 function getMe(req, res, next) {
   const userId = req.user._id;
