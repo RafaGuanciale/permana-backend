@@ -130,8 +130,6 @@ A exclusão de conta remove também os documentos de coleção associados ao usu
 
 ## Variáveis de ambiente
 
-Crie um arquivo `.env` na raiz do projeto com base no `.env.example`:
-
 ```
 MONGO_URI=       # string de conexão do MongoDB Atlas
 PORT=            # porta em que o servidor vai rodar
