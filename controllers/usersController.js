@@ -69,10 +69,12 @@ function deleteAccount(req, res, next) {
           });
         }
 
-        return colectionModel.deleteMany({ useId: ownerId }).then((result) => {
-          console.log("deletados da coleção:", result.deletedCount);
-          return userModel.findByIdAndDelete(ownerId).orFail();
-        });
+        return collectionModel
+          .deleteMany({ userId: ownerId })
+          .then((result) => {
+            console.log("deletados da coleção:", result.deletedCount);
+            return userModel.findByIdAndDelete(ownerId).orFail();
+          });
       }),
     )
     .then(() => {
