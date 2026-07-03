@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user");
+const colectionModel = require("../models/collection");
 
 function getMe(req, res, next) {
   const userId = req.user._id;
@@ -68,7 +69,10 @@ function deleteAccount(req, res, next) {
           });
         }
 
-        return userModel.findByIdAndDelete(ownerId).orFail();
+        return colectionModel.deleteMany({ useId: ownerId }).then((result) => {
+          console.log("deletados da coleção:", result.deletedCount);
+          return userModel.findByIdAndDelete(ownerId).orFail();
+        });
       }),
     )
     .then(() => {
